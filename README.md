@@ -1,2 +1,2 @@
 # NeuralNetFromScratch
-Implement Neural Network using only Numpy
+Implemented a Neural Network using only Numpy which is capable of Matrix Multiplication.
