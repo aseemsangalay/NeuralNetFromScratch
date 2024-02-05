@@ -1,0 +1,30 @@
+import cv2
+import matplotlib.pyplot as plt
+
+def generate_and_get_bounding_boxes(image_path):
+    # Load the image
+    image = cv2.imread(image_path)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    # Apply threshold to obtain binary image
+    _, binary_image = cv2.threshold(gray, 128, 255, cv2.THRESH_BINARY_INV)
+
+    # Find contours in the binary image
+    contours, _ = cv2.findContours(binary_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+    # Plot the image with bounding boxes
+    fig, ax = plt.subplots(1)
+    ax.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+
+    # Draw bounding boxes on the image
+    for i, contour in enumerate(contours):
+        x, y, w, h = cv2.boundingRect(contour)
+        cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        print(f"Text {i + 1} - Bounding Box Coordinates: ({x}, {y}, {x + w}, {y + h})")
+
+    plt.axis('off')
+    plt.show()
+
+# Replace 'path/to/your/image.jpg' with the actual path to your image
+image_path = 'path/to/your/image.jpg'
+generate_and_get_bounding_boxes(image_path)
